@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import './index.css';
 import { useForm } from "react-hook-form";
 
@@ -15,10 +14,6 @@ function App() {
   const [modalComponent, setmodalComponent] = useState(false);
   const [word, setWords] = useState([{}]);
 
-  const [green, setGreen] = useState(false);
-  const [gray, setGray] = useState(false);
-  const [yellow, setYellow] = useState(false);
-
   const [word1Success, setWord1Success] = useState(false);
   const [word2Success, setWord2Success] = useState(false);
   const [word3Success, setWord3Success] = useState(false);
@@ -30,6 +25,12 @@ function App() {
   const [word3, setWord3] = useState(false);
   const [word4, setWord4] = useState(false);
   const [word5, setWord5] = useState(false);
+
+  const [word1Gray, setWord1Gray] = useState(false);
+  const [word2Gray, setWord2Gray] = useState(false);
+  const [word3Gray, setWord3Gray] = useState(false);
+  const [word4Gray, setWord4Gray] = useState(false);
+  const [word5Gray, setWord5Gray] = useState(false);
 
   const letra0: String = 'G'
   const letra1: String = 'C'
@@ -44,61 +45,93 @@ function App() {
   const { register: register5, handleSubmit: handleSubmit5} = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data)
-    let word1, word2, word3, word4, word5;
-    const wordForm = data.first + data.second + data.third + data.four + data.five;
     const disWord = wordSelected.split('');
     
-    console.log(disWord, wordSelected);
-    console.log(disWord[0], data.first)
-
     if (disWord[0] === data.first) {
       setWord1Success(true)
+      setWord1(false)
+      setWord1Gray(false)
     } else {
-      wordSelected.includes(disWord[0]) ? setWord1(true) : setWord1(false);
+      if (wordSelected.includes(data.first)) {
+        setWord1(true)
+        setWord1Gray(false)
+      } else {
+        setWord1(false)
+        setWord1Gray(true)
+      }
     }
+
     if (disWord[1] === data.second) {
       setWord2Success(true)
+      setWord2(false)
+      setWord2Gray(false)
     } else {
-      wordSelected.includes(disWord[0]) ? setWord2(true) : setWord2(false);
+      if (wordSelected.includes(data.second)) {
+        setWord2(true)
+        setWord2Gray(false)
+      } else {
+        setWord2(false)
+        setWord2Gray(true)
+      }
     }
+
     if (disWord[2] === data.third) {
       setWord3Success(true)
+      setWord3(false)
+      setWord3Gray(false)
     } else {
-      wordSelected.includes(disWord[0]) ? setWord3(true) : setWord3(false);
+      if (wordSelected.includes(data.third)) {
+        setWord3(true)
+        setWord3Gray(false)
+      } else {
+        setWord3(false)
+        setWord3Gray(true)
+      }
     }
+
     if (disWord[3] === data.four) {
       setWord4Success(true)
+      setWord4(false)
+      setWord4Gray(false)
     } else {
-      wordSelected.includes(disWord[0]) ? setWord4(true) : setWord4(false);
+      if (wordSelected.includes(data.four)) {
+        setWord4(true)
+        setWord4Gray(false)
+      } else {
+        setWord4(false)
+        setWord4Gray(true)
+      }
     }
+
     if (disWord[4] === data.five) {
       setWord5Success(true)
+      setWord5(false)
+      setWord5Gray(false)
     } else {
-      wordSelected.includes(disWord[0]) ? setWord5(true) : setWord5(false);
+      if (wordSelected.includes(data.five)) {
+        setWord5(true)
+        setWord5Gray(false)
+      } else {
+        setWord5(false)
+        setWord5Gray(true)
+      }
     }
-
-
   };
 
   const onSubmit2 = (data: any) => {
     const wordForm = data.first + data.second + data.third + data.four + data.five;
-    const wordFormMayus = wordForm.toUpperCase();
   };
 
   const onSubmit3 = (data: any) => {
     const wordForm = data.first + data.second + data.third + data.four + data.five;
-    const wordFormMayus = wordForm.toUpperCase();
   };
 
   const onSubmit4 = (data: any) => {
     const wordForm = data.first + data.second + data.third + data.four + data.five;
-    const wordFormMayus = wordForm.toUpperCase();
   };
 
   const onSubmit5 = (data: any) => {
     const wordForm = data.first + data.second + data.third + data.four + data.five;
-    const wordFormMayus = wordForm.toUpperCase();
   };
 
   useEffect(() => {
@@ -112,8 +145,16 @@ function App() {
     setPageTwo(true);
   }
 
+  const close = () => {
+    setWord1Success(false);
+    setWord2Success(false);
+    setWord3Success(false);
+    setWord4Success(false);
+    setWord5Success(false);
+  }
+
   return (
-    <div className="App container">
+    <div className="App">
 
       {instructions && (
         <div className="instructions">
@@ -176,11 +217,11 @@ function App() {
           {wordSelected}
           <div className='words'>
             <form onSubmit={handleSubmit(onSubmit)} className='word'>
-              <input className={`${word1Success ? "green" : ""}`} type='text' maxLength={1} {...register("first", { required: true })} />
-              <input className={`${word2Success ? "green" : ""}`} type='text' maxLength={1} {...register("second", { required: true })} />
-              <input className={`${word3Success ? "green" : ""}`} type='text' maxLength={1} {...register("third", { required: true })} />
-              <input className={`${word4Success ? "green" : ""}`} type='text' maxLength={1} {...register("four", { required: true })} />
-              <input className={`${word5Success ? "green" : ""}`} type='text' maxLength={1} {...register("five", { required: true })}/>
+              <input className={`${word1Success ? "green" : ""} ${word1 ? 'yellow' : ''} ${word1Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("first", { required: true })} />
+              <input className={`${word2Success ? "green" : ""} ${word2 ? 'yellow' : ''} ${word2Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("second", { required: true })} />
+              <input className={`${word3Success ? "green" : ""} ${word3 ? 'yellow' : ''} ${word3Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("third", { required: true })} />
+              <input className={`${word4Success ? "green" : ""} ${word4 ? 'yellow' : ''} ${word4Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("four", { required: true })} />
+              <input className={`${word5Success ? "green" : ""} ${word5 ? 'yellow' : ''} ${word5Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("five", { required: true })}/>
               <button type="submit" value="save" >Save</button>
             </form>
             <form onSubmit={handleSubmit2(onSubmit2)} className='word'>
@@ -219,29 +260,30 @@ function App() {
         </div>
       )}
 
-      {modalComponent && (
+      {word1Success && word2Success && word3Success && word4Success && word5Success && (
         <>
-          <div className="results">
-            <h3 className='mb-6 font-bold'>Estadísticas</h3>
-            <div className="flex justify-evenly mb-8">
-              <p className='flex flex-col'>
-                <strong>8</strong>
-                Jugadas
-              </p>
-              <p className='flex flex-col'>
-                <strong>2</strong>
-                Victorias
-              </p>
-              <p>learn react</p>
+          <div className="modal">
+            <div className="results">
+              <h3 className='mb-6 font-bold'>Estadísticas</h3>
+              <div className="flex justify-evenly mb-8">
+                <p className='flex flex-col'>
+                  <strong>8</strong>
+                  Jugadas
+                </p>
+                <p className='flex flex-col'>
+                  <strong>2</strong>
+                  Victorias
+                </p>
+              </div>
+              {true && (
+                <>
+                  <p className='text-xs mb-4'>La palabra era: <strong>PERRO</strong></p>
+                </>
+              )}
+              <p className='text-xs'>SIGUIENTE PALABRA</p>
+              <p className='mb-5'><strong>04:10</strong></p>
+              <button className='button-primary flex items-center flex-col' onClick={close}>ACEPTAR</button>
             </div>
-            {true && (
-              <>
-                <p className='text-xs mb-4'>La palabra era: <strong>PERRO</strong></p>
-              </>
-            )}
-            <p className='text-xs'>SIGUIENTE PALABRA</p>
-            <p className='mb-5'><strong>04:10</strong></p>
-            <button className='button-primary flex items-center flex-col'>ACEPTAR</button>
           </div>
         </>
       )}

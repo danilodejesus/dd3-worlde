@@ -11,6 +11,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.App {
+  text-align: center;
+}
+
 .instructions {
   border: 1px solid black;
   border-radius: 12px;
@@ -59,6 +63,7 @@ body {
   text-transform: uppercase;
   border: 1px solid black;
   border-radius: 8px;
+  /* background: white; */
 }
 
 .button-primary {
@@ -88,10 +93,22 @@ body {
   margin: auto;
 }
 
+.modal {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  background: #000000b3;
+  top: 0;
+  bottom: 0;
+}
+
 .results {
   max-width: 340px;
   padding: 20px;
   margin: auto;
   border: 1px solid black;
   border-radius: 12px;
+  background-color: white;
+  margin-top: 25vh;
 }
