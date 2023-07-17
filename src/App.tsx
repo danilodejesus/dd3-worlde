@@ -22,11 +22,44 @@ function App() {
   const errorMessage = false;
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register: register2, handleSubmit: handleSubmit2} = useForm();
+  const { register: register3, handleSubmit: handleSubmit3} = useForm();
+  const { register: register4, handleSubmit: handleSubmit4} = useForm();
+  const { register: register5, handleSubmit: handleSubmit5} = useForm();
+
   const onSubmit = (data: any) => {
     const wordForm = data.first + data.second + data.third + data.four + data.five;
-    // const wordFormMayus = wordForm.toUpperCase();
-    // console.log(wordSelected, wordFormMayus);
-    // console.log('comparation: ', wordSelected === wordFormMayus)
+    const wordFormMayus = wordForm.toUpperCase();
+    console.log(wordSelected, wordFormMayus);
+    console.log('comparation: ', wordSelected === wordFormMayus)
+  };
+
+  const onSubmit2 = (data: any) => {
+    const wordForm = data.first + data.second + data.third + data.four + data.five;
+    const wordFormMayus = wordForm.toUpperCase();
+    console.log(wordSelected, wordFormMayus);
+    console.log('comparation: ', wordSelected === wordFormMayus)
+  };
+
+  const onSubmit3 = (data: any) => {
+    const wordForm = data.first + data.second + data.third + data.four + data.five;
+    const wordFormMayus = wordForm.toUpperCase();
+    console.log(wordSelected, wordFormMayus);
+    console.log('comparation: ', wordSelected === wordFormMayus)
+  };
+
+  const onSubmit4 = (data: any) => {
+    const wordForm = data.first + data.second + data.third + data.four + data.five;
+    const wordFormMayus = wordForm.toUpperCase();
+    console.log(wordSelected, wordFormMayus);
+    console.log('comparation: ', wordSelected === wordFormMayus)
+  };
+
+  const onSubmit5 = (data: any) => {
+    const wordForm = data.first + data.second + data.third + data.four + data.five;
+    const wordFormMayus = wordForm.toUpperCase();
+    console.log(wordSelected, wordFormMayus);
+    console.log('comparation: ', wordSelected === wordFormMayus)
   };
 
   useEffect(() => {
@@ -39,11 +72,6 @@ function App() {
   const play = () => {
     setInstructions(false);
     setPageTwo(true);
-  }
-
-  const handleChange = (event: any) => {
-    const word = event.target.value += event.target.value
-    console.log(word)
   }
 
   return (
@@ -109,41 +137,46 @@ function App() {
           </div>
 
           <div className='words'>
-            <div className='word'>
-              <input type='text' maxLength={1} onChange={handleChange} />
-              <input type='text' maxLength={1} onChange={handleChange} />
-              <input type='text' maxLength={1} onChange={handleChange} />
-              <input type='text' maxLength={1} onChange={handleChange} />
-              <input type='text' maxLength={1} onChange={handleChange} />
-            </div>
-            <div className='word'>
-              <input type='text' name='first' maxLength={1} />
-              <input type='text' name='second' maxLength={1} />
-              <input type='text' name='third' maxLength={1} />
-              <input type='text' name='four' maxLength={1} />
-              <input type='text' name='five' maxLength={1} />
-            </div>
-            <div className='word'>
-              <input type='text' name='first' maxLength={1} />
-              <input type='text' name='second' maxLength={1} />
-              <input type='text' name='third' maxLength={1} />
-              <input type='text' name='four' maxLength={1} />
-              <input type='text' name='five' maxLength={1} />
-            </div>
-            <div className='word'>
-              <input type='text' name='first' maxLength={1} />
-              <input type='text' name='second' maxLength={1} />
-              <input type='text' name='third' maxLength={1} />
-              <input type='text' name='four' maxLength={1} />
-              <input type='text' name='five' maxLength={1} />
-            </div>
-            <div className='word'>
-              <input type='text' name='first' maxLength={1} />
-              <input type='text' name='second' maxLength={1} />
-              <input type='text' name='third' maxLength={1} />
-              <input type='text' name='four' maxLength={1} />
-              <input type='text' name='five' maxLength={1} />
-            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className='word'>
+              <input type='text' maxLength={1} {...register("first", { required: true })} />
+              <input type='text' maxLength={1} {...register("second", { required: true })} />
+              <input type='text' maxLength={1} {...register("third", { required: true })} />
+              <input type='text' maxLength={1} {...register("four", { required: true })} />
+              <input type='text' maxLength={1} {...register("five", { required: true })}/>
+              <button type="submit" value="save" >Save</button>
+            </form>
+            <form onSubmit={handleSubmit2(onSubmit2)} className='word'>
+              <input type='text' maxLength={1} {...register2("first", { required: true })} />
+              <input type='text' maxLength={1} {...register2("second", { required: true })} />
+              <input type='text' maxLength={1} {...register2("third", { required: true })} />
+              <input type='text' maxLength={1} {...register2("four", { required: true })} />
+              <input type='text' maxLength={1} {...register2("five", { required: true })}/>
+              <button type="submit" value="save">Save</button>
+            </form>
+            <form onSubmit={handleSubmit3(onSubmit3)} className='word'>
+              <input type='text' maxLength={1} {...register3("first", { required: true })} />
+              <input type='text' maxLength={1} {...register3("second", { required: true })} />
+              <input type='text' maxLength={1} {...register3("third", { required: true })} />
+              <input type='text' maxLength={1} {...register3("four", { required: true })} />
+              <input type='text' maxLength={1} {...register3("five", { required: true })}/>
+              <button type="submit" value="save">Save</button>
+            </form>
+            <form onSubmit={handleSubmit4(onSubmit4)} className='word'>
+              <input type='text' maxLength={1} {...register4("first", { required: true })} />
+              <input type='text' maxLength={1} {...register4("second", { required: true })} />
+              <input type='text' maxLength={1} {...register4("third", { required: true })} />
+              <input type='text' maxLength={1} {...register4("four", { required: true })} />
+              <input type='text' maxLength={1} {...register4("five", { required: true })}/>
+              <button type="submit" value="save">Save</button>
+            </form>
+            <form onSubmit={handleSubmit5(onSubmit5)} className='word'>
+              <input type='text' maxLength={1} {...register5("first", { required: true })} />
+              <input type='text' maxLength={1} {...register5("second", { required: true })} />
+              <input type='text' maxLength={1} {...register5("third", { required: true })} />
+              <input type='text' maxLength={1} {...register5("four", { required: true })} />
+              <input type='text' maxLength={1} {...register5("five", { required: true })}/>
+              <button type="submit" value="save">Save</button>
+            </form>
           </div>
         </div>
       )}

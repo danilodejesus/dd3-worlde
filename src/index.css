@@ -36,6 +36,14 @@ body {
   margin-bottom: 20px;
 }
 
+.words button {
+  background: red;
+  color: white;
+  padding: 0px 10px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
 .word {
   display: flex;
   justify-content: space-between;
