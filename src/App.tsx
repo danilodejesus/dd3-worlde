@@ -15,6 +15,22 @@ function App() {
   const [modalComponent, setmodalComponent] = useState(false);
   const [word, setWords] = useState([{}]);
 
+  const [green, setGreen] = useState(false);
+  const [gray, setGray] = useState(false);
+  const [yellow, setYellow] = useState(false);
+
+  const [word1Success, setWord1Success] = useState(false);
+  const [word2Success, setWord2Success] = useState(false);
+  const [word3Success, setWord3Success] = useState(false);
+  const [word4Success, setWord4Success] = useState(false);
+  const [word5Success, setWord5Success] = useState(false);
+
+  const [word1, setWord1] = useState(false);
+  const [word2, setWord2] = useState(false);
+  const [word3, setWord3] = useState(false);
+  const [word4, setWord4] = useState(false);
+  const [word5, setWord5] = useState(false);
+
   const letra0: String = 'G'
   const letra1: String = 'C'
   const letra2: String = 'O'
@@ -28,44 +44,66 @@ function App() {
   const { register: register5, handleSubmit: handleSubmit5} = useForm();
 
   const onSubmit = (data: any) => {
+    console.log(data)
+    let word1, word2, word3, word4, word5;
     const wordForm = data.first + data.second + data.third + data.four + data.five;
-    const wordFormMayus = wordForm.toUpperCase();
-    console.log(wordSelected, wordFormMayus);
-    console.log('comparation: ', wordSelected === wordFormMayus)
+    const disWord = wordSelected.split('');
+    
+    console.log(disWord, wordSelected);
+    console.log(disWord[0], data.first)
+
+    if (disWord[0] === data.first) {
+      setWord1Success(true)
+    } else {
+      wordSelected.includes(disWord[0]) ? setWord1(true) : setWord1(false);
+    }
+    if (disWord[1] === data.second) {
+      setWord2Success(true)
+    } else {
+      wordSelected.includes(disWord[0]) ? setWord2(true) : setWord2(false);
+    }
+    if (disWord[2] === data.third) {
+      setWord3Success(true)
+    } else {
+      wordSelected.includes(disWord[0]) ? setWord3(true) : setWord3(false);
+    }
+    if (disWord[3] === data.four) {
+      setWord4Success(true)
+    } else {
+      wordSelected.includes(disWord[0]) ? setWord4(true) : setWord4(false);
+    }
+    if (disWord[4] === data.five) {
+      setWord5Success(true)
+    } else {
+      wordSelected.includes(disWord[0]) ? setWord5(true) : setWord5(false);
+    }
+
+
   };
 
   const onSubmit2 = (data: any) => {
     const wordForm = data.first + data.second + data.third + data.four + data.five;
     const wordFormMayus = wordForm.toUpperCase();
-    console.log(wordSelected, wordFormMayus);
-    console.log('comparation: ', wordSelected === wordFormMayus)
   };
 
   const onSubmit3 = (data: any) => {
     const wordForm = data.first + data.second + data.third + data.four + data.five;
     const wordFormMayus = wordForm.toUpperCase();
-    console.log(wordSelected, wordFormMayus);
-    console.log('comparation: ', wordSelected === wordFormMayus)
   };
 
   const onSubmit4 = (data: any) => {
     const wordForm = data.first + data.second + data.third + data.four + data.five;
     const wordFormMayus = wordForm.toUpperCase();
-    console.log(wordSelected, wordFormMayus);
-    console.log('comparation: ', wordSelected === wordFormMayus)
   };
 
   const onSubmit5 = (data: any) => {
     const wordForm = data.first + data.second + data.third + data.four + data.five;
     const wordFormMayus = wordForm.toUpperCase();
-    console.log(wordSelected, wordFormMayus);
-    console.log('comparation: ', wordSelected === wordFormMayus)
   };
 
   useEffect(() => {
     setWords(words);
     const wordSelected = words[(Math.floor(Math.random() * words.length))];
-    console.log(wordSelected);
     setWordSelected(wordSelected.toUpperCase());
   }, []);
 
@@ -135,14 +173,14 @@ function App() {
             <button className="go-results">GO</button>
             <button>Change color</button>
           </div>
-
+          {wordSelected}
           <div className='words'>
             <form onSubmit={handleSubmit(onSubmit)} className='word'>
-              <input type='text' maxLength={1} {...register("first", { required: true })} />
-              <input type='text' maxLength={1} {...register("second", { required: true })} />
-              <input type='text' maxLength={1} {...register("third", { required: true })} />
-              <input type='text' maxLength={1} {...register("four", { required: true })} />
-              <input type='text' maxLength={1} {...register("five", { required: true })}/>
+              <input className={`${word1Success ? "green" : ""}`} type='text' maxLength={1} {...register("first", { required: true })} />
+              <input className={`${word2Success ? "green" : ""}`} type='text' maxLength={1} {...register("second", { required: true })} />
+              <input className={`${word3Success ? "green" : ""}`} type='text' maxLength={1} {...register("third", { required: true })} />
+              <input className={`${word4Success ? "green" : ""}`} type='text' maxLength={1} {...register("four", { required: true })} />
+              <input className={`${word5Success ? "green" : ""}`} type='text' maxLength={1} {...register("five", { required: true })}/>
               <button type="submit" value="save" >Save</button>
             </form>
             <form onSubmit={handleSubmit2(onSubmit2)} className='word'>
