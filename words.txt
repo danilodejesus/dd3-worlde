@@ -1,0 +1,18 @@
+[
+  {
+    word: 'holas'
+  },
+  {
+    word: 'redes'
+  },
+  {
+    word: 'perro'
+  },
+  {
+    word: 'loros'
+  },
+  {
+    word: 'toros'
+  },
+]
+
