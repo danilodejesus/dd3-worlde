@@ -14,6 +14,11 @@ function App() {
   const [modalComponent, setmodalComponent] = useState(false);
   const [word, setWords] = useState([{}]);
 
+  const [disable, setDisable] = useState(false);
+
+  const [win, setWin] = useState(0);
+  const [lose, setLose] = useState(0);
+
   const [word1Success, setWord1Success] = useState(false);
   const [word2Success, setWord2Success] = useState(false);
   const [word3Success, setWord3Success] = useState(false);
@@ -32,10 +37,6 @@ function App() {
   const [word4Gray, setWord4Gray] = useState(false);
   const [word5Gray, setWord5Gray] = useState(false);
 
-  const letra0: String = 'G'
-  const letra1: String = 'C'
-  const letra2: String = 'O'
-
   const errorMessage = false;
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -44,15 +45,19 @@ function App() {
   const { register: register4, handleSubmit: handleSubmit4} = useForm();
   const { register: register5, handleSubmit: handleSubmit5} = useForm();
 
+  const validateWord = () => {
+    return word1Success && word2Success && word3Success && word4Success && word5Success;
+  }
+
   const onSubmit = (data: any) => {
     const disWord = wordSelected.split('');
-    
-    if (disWord[0] === data.first) {
+
+    if (disWord[0] === data.first.toUpperCase()) {
       setWord1Success(true)
       setWord1(false)
       setWord1Gray(false)
     } else {
-      if (wordSelected.includes(data.first)) {
+      if (wordSelected.includes(data.first.toUpperCase())) {
         setWord1(true)
         setWord1Gray(false)
       } else {
@@ -61,12 +66,12 @@ function App() {
       }
     }
 
-    if (disWord[1] === data.second) {
+    if (disWord[1] === data.second.toUpperCase()) {
       setWord2Success(true)
       setWord2(false)
       setWord2Gray(false)
     } else {
-      if (wordSelected.includes(data.second)) {
+      if (wordSelected.includes(data.second.toUpperCase())) {
         setWord2(true)
         setWord2Gray(false)
       } else {
@@ -75,12 +80,12 @@ function App() {
       }
     }
 
-    if (disWord[2] === data.third) {
+    if (disWord[2] === data.third.toUpperCase()) {
       setWord3Success(true)
       setWord3(false)
       setWord3Gray(false)
     } else {
-      if (wordSelected.includes(data.third)) {
+      if (wordSelected.includes(data.third.toUpperCase())) {
         setWord3(true)
         setWord3Gray(false)
       } else {
@@ -89,12 +94,12 @@ function App() {
       }
     }
 
-    if (disWord[3] === data.four) {
+    if (disWord[3] === data.four.toUpperCase()) {
       setWord4Success(true)
       setWord4(false)
       setWord4Gray(false)
     } else {
-      if (wordSelected.includes(data.four)) {
+      if (wordSelected.includes(data.four.toUpperCase())) {
         setWord4(true)
         setWord4Gray(false)
       } else {
@@ -103,12 +108,12 @@ function App() {
       }
     }
 
-    if (disWord[4] === data.five) {
+    if (disWord[4] === data.five.toUpperCase()) {
       setWord5Success(true)
       setWord5(false)
       setWord5Gray(false)
     } else {
-      if (wordSelected.includes(data.five)) {
+      if (wordSelected.includes(data.five.toUpperCase())) {
         setWord5(true)
         setWord5Gray(false)
       } else {
@@ -116,9 +121,16 @@ function App() {
         setWord5Gray(true)
       }
     }
+
+    if ((data.first.toUpperCase() + data.second.toUpperCase() + data.third.toUpperCase() + data.four.toUpperCase() + data.five.toUpperCase()) == wordSelected) {
+      setWin(win + 1);
+      setLose(lose + 1);
+      setDisable(true);
+    }
   };
 
   const onSubmit2 = (data: any) => {
+    console.log(data)
     const wordForm = data.first + data.second + data.third + data.four + data.five;
   };
 
@@ -173,7 +185,7 @@ function App() {
               <input type='text' name='five' maxLength={1} value='S' disabled/>
             </div>
           
-            <p>La letra <strong>{letra0}</strong> está en la palabra y en la posición correcta.</p>
+            <p>La letra <strong>G</strong> está en la palabra y en la posición correcta.</p>
           </div>
 
           <div className='words'>
@@ -184,7 +196,7 @@ function App() {
               <input type='text' name='four' maxLength={1} value='A' disabled/>
               <input type='text' name='five' maxLength={1} value='L' disabled/>
             </div>
-            <p>La letra <strong>{letra1}</strong> en la palabra pero en la posición incorrecta.</p>
+            <p>La letra <strong>C</strong> en la palabra pero en la posición incorrecta.</p>
           </div>
 
           <div className='words'>
@@ -195,7 +207,7 @@ function App() {
               <input type='text' name='four' maxLength={1} value='T' disabled/>
               <input type='text' name='five' maxLength={1} value='O' className='gray' disabled/>
             </div>
-            <p>La letra <strong>{letra2}</strong> no está en la palabra.</p>
+            <p>La letra <strong>A</strong> no está en la palabra.</p>
           </div>
 
           <p>Puede haber letras repetidas. Las pistas son independientes para cada letra.</p>
@@ -217,19 +229,19 @@ function App() {
           {wordSelected}
           <div className='words'>
             <form onSubmit={handleSubmit(onSubmit)} className='word'>
-              <input className={`${word1Success ? "green" : ""} ${word1 ? 'yellow' : ''} ${word1Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("first", { required: true })} />
-              <input className={`${word2Success ? "green" : ""} ${word2 ? 'yellow' : ''} ${word2Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("second", { required: true })} />
-              <input className={`${word3Success ? "green" : ""} ${word3 ? 'yellow' : ''} ${word3Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("third", { required: true })} />
-              <input className={`${word4Success ? "green" : ""} ${word4 ? 'yellow' : ''} ${word4Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("four", { required: true })} />
-              <input className={`${word5Success ? "green" : ""} ${word5 ? 'yellow' : ''} ${word5Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("five", { required: true })}/>
-              <button type="submit" value="save" >Save</button>
+              <input className={`${word1Success ? "green" : ""} ${word1 ? 'yellow' : ''} ${word1Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("first", { required: true })} disabled={disable} />
+              <input className={`${word2Success ? "green" : ""} ${word2 ? 'yellow' : ''} ${word2Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("second", { required: true })} disabled={disable} />
+              <input className={`${word3Success ? "green" : ""} ${word3 ? 'yellow' : ''} ${word3Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("third", { required: true })} disabled={disable} />
+              <input className={`${word4Success ? "green" : ""} ${word4 ? 'yellow' : ''} ${word4Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("four", { required: true })} disabled={disable} />
+              <input className={`${word5Success ? "green" : ""} ${word5 ? 'yellow' : ''} ${word5Gray ? 'gray' : ''}`} type='text' maxLength={1} {...register("five", { required: true })} disabled={disable} />
+              <button type="submit" value="save" disabled={disable}>Save</button>
             </form>
             <form onSubmit={handleSubmit2(onSubmit2)} className='word'>
-              <input type='text' maxLength={1} {...register2("first", { required: true })} />
-              <input type='text' maxLength={1} {...register2("second", { required: true })} />
-              <input type='text' maxLength={1} {...register2("third", { required: true })} />
-              <input type='text' maxLength={1} {...register2("four", { required: true })} />
-              <input type='text' maxLength={1} {...register2("five", { required: true })}/>
+              <input type='text' maxLength={1} {...register2("first2", { required: true })} />
+              <input type='text' maxLength={1} {...register2("second2", { required: true })} />
+              <input type='text' maxLength={1} {...register2("third2", { required: true })} />
+              <input type='text' maxLength={1} {...register2("four2", { required: true })} />
+              <input type='text' maxLength={1} {...register2("five2", { required: true })}/>
               <button type="submit" value="save">Save</button>
             </form>
             <form onSubmit={handleSubmit3(onSubmit3)} className='word'>
@@ -260,18 +272,18 @@ function App() {
         </div>
       )}
 
-      {word1Success && word2Success && word3Success && word4Success && word5Success && (
+      {validateWord() && (
         <>
           <div className="modal">
             <div className="results">
               <h3 className='mb-6 font-bold'>Estadísticas</h3>
               <div className="flex justify-evenly mb-8">
                 <p className='flex flex-col'>
-                  <strong>8</strong>
+                  <strong>{win}</strong>
                   Jugadas
                 </p>
                 <p className='flex flex-col'>
-                  <strong>2</strong>
+                  <strong>{lose}</strong>
                   Victorias
                 </p>
               </div>
